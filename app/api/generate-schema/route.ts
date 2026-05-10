@@ -28,7 +28,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         // Also generate a README
         folder.file('README.md', generateReadme(models));
 
-        const zipBuffer = await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
+        const zipBuffer: any = await zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
 
         return new NextResponse(zipBuffer, {
             status: 200,

@@ -15,14 +15,14 @@ export function Toolbar() {
     const [generated, setGenerated] = useState(false);
 
     const registries = nodes
-        .filter((n) => n.type === 'fileRegistryNode')
-        .map((n) => ({ id: n.id, name: (n.data as FileRegistryNodeData).registryName }));
+        .filter((n: any) => n.type === 'fileRegistryNode')
+        .map((n: any) => ({ id: n.id, name: (n.data as FileRegistryNodeData).registryName }));
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file || !selectedRegistry) return;
 
-        const registry = nodes.find((n) => n.id === selectedRegistry);
+        const registry = nodes.find((n: any) => n.id === selectedRegistry);
         if (!registry) return;
 
         setUploading(true);
@@ -45,7 +45,7 @@ export function Toolbar() {
     };
 
     const handleGenerateSchema = async () => {
-        const modelNodes = nodes.filter((n) => n.type === 'modelNode');
+        const modelNodes = nodes.filter((n: any) => n.type === 'modelNode');
         if (modelNodes.length === 0) return;
 
         setGenerating(true);
@@ -53,7 +53,7 @@ export function Toolbar() {
             const res = await fetch('/api/generate-schema', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ models: modelNodes.map((n) => n.data) }),
+                body: JSON.stringify({ models: modelNodes.map((n: any) => n.data) }),
             });
             const blob = await res.blob();
             const url = URL.createObjectURL(blob);
@@ -125,7 +125,7 @@ export function Toolbar() {
                         }}
                     >
                         <option value="">select registry…</option>
-                        {registries.map((r) => (
+                        {registries.map((r: any) => (
                             <option key={r.id} value={r.id}>{r.name}</option>
                         ))}
                     </select>

@@ -248,8 +248,8 @@ export function ModelNode({ id, data, selected }: NodeProps) {
     const { updateNodeData, nodes } = useEditorStore();
 
     const allModels = nodes
-        .filter((n) => n.type === 'modelNode')
-        .map((n) => (n.data as ModelNodeData).modelName);
+        .filter((n: any) => n.type === 'modelNode')
+        .map((n: any) => (n.data as ModelNodeData).modelName);
 
     const addField = () => {
         const newField: ModelField = {

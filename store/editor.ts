@@ -11,6 +11,7 @@ import {
     type Connection,
 } from '@xyflow/react';
 import type { ModelNodeData, HookNodeData, ControlNodeData, FileRegistryNodeData, CrudNodeData } from '../types';
+import { templateNodes, templateEdges } from '../lib/editorTemplate';
 
 export type AppNode = Node<
     ModelNodeData | HookNodeData | ControlNodeData | FileRegistryNodeData | CrudNodeData,
@@ -98,20 +99,20 @@ const nodeDefaultsByType: Record<string, () => AppNode['data']> = {
 
 export const useEditorStore = create<EditorStore | any>()(
     devtools((set, get) => ({
-        nodes: [],
-        edges: [],
+        nodes: templateNodes,
+        edges: templateEdges,
         selectedNode: null,
         activePanel: null,
         sidebarOpen: true,
 
-        onNodesChange: (changes) =>
-            set((s) => ({ nodes: applyNodeChanges(changes, s.nodes) as AppNode[] })),
+        onNodesChange: (changes: any) =>
+            set((s: any) => ({ nodes: applyNodeChanges(changes, s.nodes) as AppNode[] })),
 
-        onEdgesChange: (changes) =>
-            set((s) => ({ edges: applyEdgeChanges(changes, s.edges) })),
+        onEdgesChange: (changes: any) =>
+            set((s: any) => ({ edges: applyEdgeChanges(changes, s.edges) })),
 
-        onConnect: (connection) =>
-            set((s) => ({
+        onConnect: (connection: any) =>
+            set((s: any) => ({
                 edges: addEdge(
                     {
                         ...connection,
@@ -131,12 +132,12 @@ export const useEditorStore = create<EditorStore | any>()(
                 position,
                 data,
             } as AppNode;
-            set((s) => ({ nodes: [...s.nodes, newNode] }));
+            set((s: any) => ({ nodes: [...s.nodes, newNode] }));
         },
 
-        updateNodeData: (id, data) =>
-            set((s) => ({
-                nodes: s.nodes.map((n) =>
+        updateNodeData: (id: any, data: any) =>
+            set((s: any) => ({
+                nodes: s.nodes.map((n: any) =>
                     n.id === id ? { ...n, data: { ...n.data, ...data } } : n,
                 ),
                 selectedNode:
@@ -145,16 +146,16 @@ export const useEditorStore = create<EditorStore | any>()(
                         : s.selectedNode,
             })) as any,
 
-        selectNode: (node) => set({ selectedNode: node }),
+        selectNode: (node: any) => set({ selectedNode: node }),
 
-        deleteNode: (id) =>
-            set((s) => ({
-                nodes: s.nodes.filter((n) => n.id !== id),
-                edges: s.edges.filter((e) => e.source !== id && e.target !== id),
+        deleteNode: (id: any) =>
+            set((s: any) => ({
+                nodes: s.nodes.filter((n: any) => n.id !== id),
+                edges: s.edges.filter((e: any) => e.source !== id && e.target !== id),
                 selectedNode: s.selectedNode?.id === id ? null : s.selectedNode,
             })),
 
-        setActivePanel: (panel) => set({ activePanel: panel }),
-        setSidebarOpen: (open) => set({ sidebarOpen: open }),
+        setActivePanel: (panel: PanelType) => set({ activePanel: panel }),
+        setSidebarOpen: (open: boolean) => set({ sidebarOpen: open }),
     })),
 );

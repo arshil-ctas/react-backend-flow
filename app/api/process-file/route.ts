@@ -9,7 +9,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         const registry: FileRegistryNodeData = await request.json();
 
         const isXlsx = registry.arrayConfig.shape !== 'flat-csv';
-        const buffer = generateSampleBuffer(registry);
+        const buffer: any = generateSampleBuffer(registry);
         const ext = isXlsx ? 'xlsx' : 'csv';
         const contentType = isXlsx
             ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

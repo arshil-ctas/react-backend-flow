@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  serverExternalPackages: ['xlsx', 'csv-parse'],
 
-const nextConfig: NextConfig = {
-  /* config options here */
+  turbopack: {},
 };
 
 export default nextConfig;

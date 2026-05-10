@@ -1,63 +1,104 @@
-import Image from "next/image";
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{
+      position: 'relative',
+      minHeight: '100vh',
+      background: '#09090b',
+      overflow: 'hidden',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}>
+      {/* Grid background */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: 'linear-gradient(to right, #18181b 1px, transparent 1px), linear-gradient(to bottom, #18181b 1px, transparent 1px)',
+        backgroundSize: '48px 48px',
+      }} />
+
+      {/* Glow */}
+      <div style={{
+        position: 'absolute', left: '50%', top: '50%',
+        width: 600, height: 600,
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)',
+        filter: 'blur(40px)',
+        pointerEvents: 'none',
+      }} />
+
+      <main style={{ position: 'relative', zIndex: 10, textAlign: 'center', padding: '0 24px', maxWidth: 640 }}>
+        {/* Badge */}
+        <div style={{
+          display: 'inline-flex', alignItems: 'center',
+          border: '1px solid rgba(99,102,241,0.25)',
+          background: 'rgba(99,102,241,0.08)',
+          borderRadius: 999, padding: '4px 14px',
+          fontSize: 11, color: '#818cf8', marginBottom: 32,
+          letterSpacing: '0.04em',
+        }}>
+          Visual Backend Builder · MVP
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <h1 style={{
+          color: '#f4f4f5', fontSize: 'clamp(36px, 6vw, 72px)',
+          fontWeight: 800, letterSpacing: '-0.04em',
+          lineHeight: 1.05, marginBottom: 24,
+        }}>
+          Build backends<br />
+          <span style={{
+            background: 'linear-gradient(135deg, #6366f1, #a855f7, #ec4899)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>
+            without the boilerplate.
+          </span>
+        </h1>
+
+        <p style={{
+          color: '#71717a', fontSize: 16, lineHeight: 1.7,
+          marginBottom: 40, maxWidth: 480, margin: '0 auto 40px',
+        }}>
+          Design Mongoose schemas, wire hooks, map CSV/Excel columns, and generate
+          production-ready TypeScript — all from a visual canvas.
+        </p>
+
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link href="/editor" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            height: 48, padding: '0 28px', borderRadius: 12,
+            background: 'linear-gradient(135deg, #6366f1, #a855f7)',
+            color: 'white', fontSize: 13, fontWeight: 700,
+            textDecoration: 'none', letterSpacing: '-0.01em',
+            boxShadow: '0 0 32px rgba(99,102,241,0.35)',
+            transition: 'transform 0.15s, box-shadow 0.15s',
+          }}>
+            Open Editor →
+          </Link>
+        </div>
+
+        {/* Feature pills */}
+        <div style={{ marginTop: 48, display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
+          {[
+            { label: 'Mongoose Schemas', color: '#6366f1' },
+            { label: 'pre/post Hooks', color: '#f59e0b' },
+            { label: 'CSV / XLSX Upload', color: '#34d399' },
+            { label: 'Control Flow', color: '#f472b6' },
+            { label: 'Auto-Increment', color: '#fb923c' },
+            { label: 'Bulk Operations', color: '#38bdf8' },
+            { label: 'Code Generation', color: '#a78bfa' },
+            { label: 'Relation Edges', color: '#818cf8' },
+          ].map((f) => (
+            <span key={f.label} style={{
+              fontSize: 11, padding: '5px 12px', borderRadius: 8,
+              border: `1px solid ${f.color}25`,
+              background: `${f.color}0d`,
+              color: f.color,
+            }}>
+              {f.label}
+            </span>
+          ))}
         </div>
       </main>
     </div>

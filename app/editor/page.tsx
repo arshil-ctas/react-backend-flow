@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { ReactFlowProvider } from '@xyflow/react';
 import { FlowCanvas } from '../../components/FlowCanvas';
 import { Sidebar } from '../../components/panels/Sidebar';
@@ -9,15 +9,13 @@ import { TabBar } from '@/components/panels/Tabbar';
 import { TestPanel } from '@/components/panels/TestPanel';
 import { useSearchParams } from 'next/navigation';
 import { ECOMMERCE_TEMPLATE } from '@/templates/ecommerce';
-import { useEditorStore } from '@/store/editor';
+import { SavedTemplate, useEditorStore } from '@/store/editor';
 import { MVP_BACKEND_TEMPLATE } from '@/templates/mvp-backend';
 
 const BUILTIN_MAP: Record<string, typeof ECOMMERCE_TEMPLATE | any> = {
     ecommerce: ECOMMERCE_TEMPLATE,
     'mvp-backend': MVP_BACKEND_TEMPLATE,
-};
-
-export default function EditorPage() {
+}; function TemplateLoader() {
     const searchParams = useSearchParams();
     const { loadTemplate, nodes } = useEditorStore();
 
@@ -30,7 +28,7 @@ export default function EditorPage() {
                 name: tpl.name,
                 description: tpl.description,
                 icon: tpl.icon,
-                nodes: tpl.nodes as any,
+                nodes: tpl.nodes as SavedTemplate['nodes'],
                 edges: tpl.edges,
                 savedAt: 0,
                 isBuiltIn: true,
@@ -38,8 +36,17 @@ export default function EditorPage() {
                 models: tpl.models,
             });
         }
-    }, []); // run once on mount
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    return null; // purely side-effect
+}
+
+
+
+
+export default function EditorPage() {
+
+    
     return (
         <ReactFlowProvider>
             <div style={{
@@ -50,6 +57,9 @@ export default function EditorPage() {
                 background: '#09090b',
                 overflow: 'hidden',
             }}>
+                <Suspense fallback={null}>
+                    <TemplateLoader />
+                </Suspense>
                 {/* Top Toolbar */}
                 <Toolbar />
                 {/* Tab Bar */}

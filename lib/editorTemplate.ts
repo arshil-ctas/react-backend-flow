@@ -8,7 +8,7 @@ export const templateNodes: Node[] = [
   // MODELS (8)
   // ═══════════════════════════════════════════════════════════════════
   {
-    id: 'm_user', type: 'modelNode', position: { x: 40, y: 50 },
+    id: 'm_user', type: 'modelNode', position: { x: 20, y: 50 },
     data: {
       modelName: 'User', collectionName: 'users', timestamps: true, softDelete: false,
       fields: [
@@ -28,7 +28,7 @@ export const templateNodes: Node[] = [
     } as ModelNodeData,
   },
   {
-    id: 'm_product', type: 'modelNode', position: { x: 40, y: 400 },
+    id: 'm_product', type: 'modelNode', position: { x: 40, y: 300 },
     data: {
       modelName: 'Product', collectionName: 'products', timestamps: true, softDelete: false,
       fields: [

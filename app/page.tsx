@@ -10,6 +10,7 @@ import {
   Database, Star, ArrowRight, Package,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { MVP_BACKEND_TEMPLATE } from '@/templates/mvp-backend';
 
 const BUILTIN: SavedTemplate[] = [
   {
@@ -24,6 +25,19 @@ const BUILTIN: SavedTemplate[] = [
     tags: ['mongoose', 'e-commerce', 'production', 'full-stack'],
     models: ['User', 'Product', 'Category', 'Order', 'Inventory', 'Review'],
   },
+    {
+    id: 'mvp-backend',
+    name: 'MVP Backend',
+    icon: '🚀',
+    description: MVP_BACKEND_TEMPLATE.description,
+    nodes: MVP_BACKEND_TEMPLATE.nodes as SavedTemplate['nodes'],
+    edges: MVP_BACKEND_TEMPLATE.edges,
+    savedAt: 0,
+    isBuiltIn: true,
+    tags: MVP_BACKEND_TEMPLATE.tags,
+    models: MVP_BACKEND_TEMPLATE.models,
+  },
+
 ];
 
 const MODEL_COLORS: Record<string, string> = {
@@ -168,10 +182,11 @@ const router = useRouter();
   );
 
   const handleOpen = (tpl: SavedTemplate) => {
-    loadTemplate(tpl);
-      router.push('/editor'); // ← in-memory state preserved
+    console.log('tpl: ', tpl);
+  loadTemplate(tpl);
+  router.push(`/editor?template=${tpl.id}`);
+};
 
-  };
 
   const features = [
     { icon: <Database size={14} />, color: '#6366f1', label: 'Model Schemas', desc: 'Mongoose schemas with typed fields, indexes, and relations' },
